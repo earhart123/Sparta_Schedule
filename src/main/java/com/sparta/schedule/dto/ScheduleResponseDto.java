@@ -18,6 +18,5 @@ public class ScheduleResponseDto {
        this.content = schedule.getContent();
        this.writer = schedule.getWriter();
        this.date = schedule.getDate();
-       this.password = schedule.getPassword();
     }
 }
