@@ -3,7 +3,6 @@ package com.sparta.schedule.entity;
 import com.sparta.schedule.dto.ScheduleRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +12,6 @@ public class Schedule {
     private Long id;
     private String content;
     private String writer;
-    @Setter
     private LocalDateTime date;
     private String password;
 
