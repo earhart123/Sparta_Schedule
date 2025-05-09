@@ -28,6 +28,15 @@ public class ScheduleController {
         return new ScheduleResponseDto(schedule);
     }
 
-//    @GetMapping("/scheduleId")
-//    public findAllScheduleList
+    @GetMapping("/{id}")
+    public ScheduleResponseDto findScheduleById(@PathVariable Long id){
+        Schedule schedule = scheduleList.get(id);
+
+        return new ScheduleResponseDto(schedule);
+    }
+
+//    @GetMapping("/{date}")
+//    public ScheduleResponseDto findScheduleAll(@PathVariable LocalDateTime date){
+//        scheduleList.getDate
+//    }
 }
