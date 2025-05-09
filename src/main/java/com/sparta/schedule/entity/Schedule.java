@@ -1,12 +1,14 @@
-package com.sparta.schedule;
+package com.sparta.schedule.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
+@AllArgsConstructor
 public class Schedule {
+    private Long id;
     private String content;
     private String writer;
     private LocalDateTime date;
