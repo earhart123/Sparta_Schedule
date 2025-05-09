@@ -39,4 +39,13 @@ public class ScheduleController {
 //    public ScheduleResponseDto findScheduleAll(@PathVariable LocalDateTime date){
 //        scheduleList.getDate
 //    }
+
+    @PatchMapping("/{id}")
+    public ScheduleResponseDto editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto dto){
+        // password 전달 후 확인 과정 필요
+        //
+        Schedule schedule = scheduleList.get(id);
+        schedule.edit(dto);
+        return new ScheduleResponseDto(schedule);
+    }
 }
