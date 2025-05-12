@@ -4,7 +4,9 @@ import com.sparta.schedule.dto.ScheduleRequestDto;
 import com.sparta.schedule.dto.ScheduleResponseDto;
 import com.sparta.schedule.entity.Schedule;
 import com.sparta.schedule.repository.ScheduleRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService{
@@ -26,8 +28,12 @@ public class ScheduleServiceImpl implements ScheduleService{
     @Override
     public ScheduleResponseDto findScheduleById(Long id) {
         Schedule schedule = scheduleRepository.findScheduleById(id);
+
+        // 유효하지 않는 id 값이 입력될 경우 예외 처리
+        if(schedule == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
+        }
         return new ScheduleResponseDto(schedule);
     }
-
 
 }
