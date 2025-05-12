@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -36,9 +37,16 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
     }
 
-//    @GetMapping("/{date}")
-//    public ScheduleResponseDto findScheduleAll(@PathVariable LocalDateTime date){
-//        scheduleList.getDate
+    @GetMapping
+    public List<ScheduleResponseDto> findScheduleAll(){
+        return scheduleService.findScheduleAll();
+    }
+
+//    @GetMapping("/search-param")
+//    public List<ScheduleResponseDto> findScheduleAll(@PathVariable String date){
+//        @RequestParam("date") String date,
+//
+//        scheduleList.getDate;
 //    }
 
     @PatchMapping("/{id}")

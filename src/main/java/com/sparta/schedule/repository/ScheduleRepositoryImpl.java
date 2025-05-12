@@ -1,12 +1,11 @@
 package com.sparta.schedule.repository;
 
+import com.sparta.schedule.dto.ScheduleResponseDto;
 import com.sparta.schedule.entity.Schedule;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class ScheduleRepositoryImpl implements ScheduleRepository{
@@ -27,5 +26,16 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
     @Override
     public Schedule findScheduleById(Long id) {
         return scheduleList.get(id);
+    }
+
+    @Override
+    public List<ScheduleResponseDto> findScheduleAll() {
+        List<ScheduleResponseDto> allSchedule = new ArrayList<>();
+
+        for (Schedule schedule : scheduleList.values()) {
+            ScheduleResponseDto dto = new ScheduleResponseDto(schedule);
+            allSchedule.add(dto);
+        }
+        return allSchedule;
     }
 }

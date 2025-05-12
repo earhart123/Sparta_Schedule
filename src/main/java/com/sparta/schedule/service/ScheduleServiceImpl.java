@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class ScheduleServiceImpl implements ScheduleService{
     private final ScheduleRepository scheduleRepository;
@@ -34,6 +36,11 @@ public class ScheduleServiceImpl implements ScheduleService{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
         }
         return new ScheduleResponseDto(schedule);
+    }
+
+    @Override
+    public List<ScheduleResponseDto> findScheduleAll() {
+        return scheduleRepository.findScheduleAll();
     }
 
 }
