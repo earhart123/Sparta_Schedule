@@ -33,7 +33,7 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id){
         Schedule schedule = scheduleList.get(id);
 
-        return new ScheduleResponseDto(schedule);
+        return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
     }
 
 //    @GetMapping("/{date}")
