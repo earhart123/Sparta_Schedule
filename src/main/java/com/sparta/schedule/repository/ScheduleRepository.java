@@ -9,4 +9,6 @@ public interface ScheduleRepository {
     Schedule saveSchedule(Schedule schedule);
     Schedule findScheduleById(Long id);
     List<ScheduleResponseDto> findScheduleAll();
+    List<ScheduleResponseDto> findScheduleByDate(String date);
+    List<ScheduleResponseDto> findScheduleByWriter(String writer);
 }

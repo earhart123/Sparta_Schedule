@@ -38,4 +38,30 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         }
         return allSchedule;
     }
+
+    @Override
+    public List<ScheduleResponseDto> findScheduleByDate(String date) {
+        List<ScheduleResponseDto> scheduleDateList = new ArrayList<>();
+
+        for (Schedule schedule : scheduleList.values()) {
+            ScheduleResponseDto dto = new ScheduleResponseDto(schedule);
+            if(schedule.getReportingDate().equals(date)) {
+                scheduleDateList.add(dto);
+            }
+        }
+        return scheduleDateList;
+    }
+
+    @Override
+    public List<ScheduleResponseDto> findScheduleByWriter(String writer) {
+        List<ScheduleResponseDto> scheduleWriterList = new ArrayList<>();
+
+        for (Schedule schedule : scheduleList.values()) {
+            ScheduleResponseDto dto = new ScheduleResponseDto(schedule);
+            if(schedule.getWriter().equals(writer)) {
+                scheduleWriterList.add(dto);
+            }
+        }
+        return scheduleWriterList;
+    }
 }

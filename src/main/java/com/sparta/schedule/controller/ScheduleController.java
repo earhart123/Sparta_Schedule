@@ -32,8 +32,6 @@ public class ScheduleController {
     // 단건 일정 조회
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id){
-        Schedule schedule = scheduleList.get(id);
-
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
     }
 
@@ -42,19 +40,24 @@ public class ScheduleController {
         return scheduleService.findScheduleAll();
     }
 
-//    @GetMapping("/search-param")
-//    public List<ScheduleResponseDto> findScheduleAll(@PathVariable String date){
-//        @RequestParam("date") String date,
-//
-//        scheduleList.getDate;
-//    }
+    @GetMapping("/date/{date}")
+    public List<ScheduleResponseDto> findScheduleByDate(@PathVariable String date){
+        return scheduleService.findScheduleByDate(date);
 
-    @PatchMapping("/{id}")
-    public ScheduleResponseDto editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto dto){
-        // password 전달 후 확인 과정 필요
-        //
-        Schedule schedule = scheduleList.get(id);
-        schedule.edit(dto);
-        return new ScheduleResponseDto(schedule);
+        //scheduleList.getDate;
     }
+
+    @GetMapping("/writer/{writer}")
+    public List<ScheduleResponseDto> findScheduleByWriter(@PathVariable String writer){
+        return scheduleService.findScheduleByWriter(writer);
+    }
+
+//    @PatchMapping("/{id}")
+//    public ScheduleResponseDto editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto dto){
+//        // password 전달 후 확인 과정 필요
+//        //
+//        Schedule schedule = scheduleList.get(id);
+//        schedule.edit(dto);
+//        return new ScheduleResponseDto(schedule);
+//    }
 }

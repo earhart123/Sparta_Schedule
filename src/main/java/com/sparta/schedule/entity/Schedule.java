@@ -12,16 +12,22 @@ import java.time.LocalDateTime;
 public class Schedule {
     @Setter
     private Long id;
+    @Setter
     private String content;
+    @Setter
     private String writer;
     @Setter
     private LocalDateTime date;
-    private String password;
+    private final String password;
 
     public Schedule(String content, String writer, String password){
         this.content = content;
         this.writer = writer;
         this.password = password;
+    }
+
+    public String getReportingDate(){
+        return date.toLocalDate().toString();
     }
 
     public void edit(ScheduleRequestDto requestDto){

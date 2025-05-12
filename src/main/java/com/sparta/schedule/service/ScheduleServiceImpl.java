@@ -43,4 +43,24 @@ public class ScheduleServiceImpl implements ScheduleService{
         return scheduleRepository.findScheduleAll();
     }
 
+    @Override
+    public List<ScheduleResponseDto> findScheduleByDate(String date) {
+        if(scheduleRepository.findScheduleByDate(date)!=null) {
+            return scheduleRepository.findScheduleByDate(date);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public List<ScheduleResponseDto> findScheduleByWriter(String writer) {
+        if(scheduleRepository.findScheduleByDate(writer)!=null) {
+            return scheduleRepository.findScheduleByWriter(writer);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

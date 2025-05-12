@@ -6,7 +6,9 @@ import com.sparta.schedule.dto.ScheduleResponseDto;
 import java.util.List;
 
 public interface ScheduleService {
-    public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto);
-    public ScheduleResponseDto findScheduleById(Long id);
-    public List<ScheduleResponseDto> findScheduleAll();
+    ScheduleResponseDto saveSchedule(ScheduleRequestDto dto);
+    ScheduleResponseDto findScheduleById(Long id);
+    List<ScheduleResponseDto> findScheduleAll();
+    List<ScheduleResponseDto> findScheduleByDate(String date);
+    List<ScheduleResponseDto> findScheduleByWriter(String writer);
 }
