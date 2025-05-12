@@ -22,13 +22,15 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
+    // POST 요청을 받아 일정 정보를 저장
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto dto) {
         return new ResponseEntity<>(scheduleService.saveSchedule(dto), HttpStatus.CREATED);
     }
 
+    // 단건 일정 조회
     @GetMapping("/{id}")
-    public ScheduleResponseDto findScheduleById(@PathVariable Long id){
+    public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id){
         Schedule schedule = scheduleList.get(id);
 
         return new ScheduleResponseDto(schedule);

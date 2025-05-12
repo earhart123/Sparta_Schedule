@@ -5,4 +5,5 @@ import com.sparta.schedule.dto.ScheduleResponseDto;
 
 public interface ScheduleService {
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto);
+    public ScheduleResponseDto findScheduleById(Long id);
 }
