@@ -15,6 +15,12 @@ public class Schedule {
     private LocalDateTime date;
     private String password;
 
+    public Schedule(String content, String writer, String password){
+        this.content = content;
+        this.writer = writer;
+        this.password = password;
+    }
+
     public void edit(ScheduleRequestDto requestDto){
         this.content = requestDto.getContent();
         this.writer = requestDto.getWriter();
