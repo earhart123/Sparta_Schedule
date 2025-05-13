@@ -13,7 +13,6 @@ import java.util.List;
 
 @Repository
 public class ScheduleRepositoryImpl implements ScheduleRepository{
-    //private final Map<Long, Schedule> scheduleList = new HashMap<>();
     private final JdbcTemplate jdbcTemplate;
 
     public ScheduleRepositoryImpl(DataSource dataSource){
@@ -55,7 +54,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
 
         String sql = "SELECT id, content, writer, date FROM schedule";
 
-        // 2. *RowMapper 익명 클래스 구현
+        // *RowMapper 익명 클래스 구현
         RowMapper<ScheduleResponseDto> rowMapper = new RowMapper<ScheduleResponseDto>() {
             @Override
             public ScheduleResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -67,10 +66,9 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
             }
         };
 
-        // 3. 실행(익명클래스를 메서드로 전달해서 각 요소를 처리)
+        // 실행(익명클래스를 메서드로 전달해서 각 요소를 처리)
         List<ScheduleResponseDto> scheduleList = jdbcTemplate.query(sql, rowMapper);
 
-        // 4. 반환
         return scheduleList;
     }
 

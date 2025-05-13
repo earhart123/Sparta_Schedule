@@ -64,5 +64,9 @@ public class ScheduleController {
         scheduleService.deleteSchedule(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    // id가 null로 반환
+    // 작성자만 수정 시 반환 content가 null로 노출
+    // 내림차순으로 정렬 필요
+
 
 }

@@ -1,6 +1,5 @@
 package com.sparta.schedule.entity;
 
-import com.sparta.schedule.dto.ScheduleRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,29 +31,5 @@ public class Schedule {
         this.content = content;
         this.writer = writer;
         this.date = date;
-    }
-
-    public String getReportingDate(){
-        return date;
-    }
-
-    public void edit(ScheduleRequestDto requestDto){
-        this.content = requestDto.getContent();
-        this.writer = requestDto.getWriter();
-        this.date = LocalDateTime.now().toString();
-    }
-
-    public void editContent(ScheduleRequestDto requestDto){
-        this.content = requestDto.getContent();
-        this.date = LocalDateTime.now().toString();
-    }
-
-    public void editWriter(ScheduleRequestDto requestDto){
-        this.writer = writer;
-        this.date = LocalDateTime.now().toString();
-    }
-
-    public boolean checkPassword(String password){
-        return this.password.equals(password);
     }
 }

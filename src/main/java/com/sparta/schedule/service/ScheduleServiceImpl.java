@@ -73,28 +73,24 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public ScheduleResponseDto editSchedule(Long id, ScheduleRequestDto dto) {
-        Schedule schedule;
-        ScheduleResponseDto scheduleResponseDto;
-        if (!scheduleRepository.getDbPassword(id).equals(schedule.getPassword())) {
+        Schedule schedule = new Schedule(id, dto.getContent(), dto.getWriter(), dto.getPassword());
+
+        if (!scheduleRepository.getDbPassword(id).equals(dto.getPassword())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "비밀번호가 일치하지 않습니다.");
         }
         // 할일, 작성자 모두 수정
         if(dto.getContent()!=null && dto.getWriter()!=null){
-            schedule = new Schedule(dto.getContent(), dto.getWriter(), dto.getPassword());
             scheduleRepository.editSchedule(schedule);
-            return new ScheduleResponseDto(scheduleRepository.findScheduleById(schedule.getId()).get());
         }
         // 할일만 수정
         else if(dto.getContent()!=null && dto.getWriter()==null){
-            schedule = new Schedule(dto.getContent(), dto.getPassword());
             scheduleRepository.editScheduleContent(schedule);
         }
         // 작성자만 수정
         else if(dto.getContent()==null && dto.getWriter()!=null){
-            schedule = new Schedule(dto.getContent(), dto.getPassword());
             scheduleRepository.editScheduleWriter(schedule);
         }
-        return null;
+        return new ScheduleResponseDto(schedule);
     }
 
 
