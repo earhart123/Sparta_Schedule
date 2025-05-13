@@ -17,23 +17,41 @@ public class Schedule {
     @Setter
     private String writer;
     @Setter
-    private LocalDateTime date;
-    private final String password;
+    private String date;
+    private String password;
 
     public Schedule(String content, String writer, String password){
         this.content = content;
         this.writer = writer;
+        this.date = LocalDateTime.now().toString();
         this.password = password;
     }
 
+    public Schedule(Long scheduleId, String content, String writer, String date) {
+        this.id = scheduleId;
+        this.content = content;
+        this.writer = writer;
+        this.date = date;
+    }
+
     public String getReportingDate(){
-        return date.toLocalDate().toString();
+        return date;
     }
 
     public void edit(ScheduleRequestDto requestDto){
         this.content = requestDto.getContent();
         this.writer = requestDto.getWriter();
-        this.date = LocalDateTime.now();
+        this.date = LocalDateTime.now().toString();
+    }
+
+    public void editContent(ScheduleRequestDto requestDto){
+        this.content = requestDto.getContent();
+        this.date = LocalDateTime.now().toString();
+    }
+
+    public void editWriter(ScheduleRequestDto requestDto){
+        this.writer = writer;
+        this.date = LocalDateTime.now().toString();
     }
 
     public boolean checkPassword(String password){

@@ -6,9 +6,14 @@ import com.sparta.schedule.entity.Schedule;
 import java.util.List;
 
 public interface ScheduleRepository {
-    Schedule saveSchedule(Schedule schedule);
-    Schedule findScheduleById(Long id);
+    ScheduleResponseDto saveSchedule(Schedule schedule);
+    ScheduleResponseDto findScheduleById(Long id);
     List<ScheduleResponseDto> findScheduleAll();
     List<ScheduleResponseDto> findScheduleByDate(String date);
     List<ScheduleResponseDto> findScheduleByWriter(String writer);
+    int editSchedule(Schedule schedule);
+    int editScheduleContent(Schedule schedule);
+    int editScheduleWriter(Schedule schedule);
+    int deleteSchedule(Long id);
+    String getDbPassword(Long id);
 }

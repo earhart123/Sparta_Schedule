@@ -9,6 +9,8 @@ public interface ScheduleService {
     ScheduleResponseDto saveSchedule(ScheduleRequestDto dto);
     ScheduleResponseDto findScheduleById(Long id);
     List<ScheduleResponseDto> findScheduleAll();
-    List<ScheduleResponseDto> findScheduleByDate(String date);
+    List<ScheduleResponseDto> findScheduleByDateOrWriter(String writer, String date);
     List<ScheduleResponseDto> findScheduleByWriter(String writer);
+    ScheduleResponseDto editSchedule(Long id, ScheduleRequestDto dto);
+    void deleteSchedule(Long id);
 }
