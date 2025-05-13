@@ -18,6 +18,9 @@ public class ScheduleServiceImpl implements ScheduleService{
         this.scheduleRepository = scheduleRepository;
     }
 
+    /**
+     * 일정 정보 저장
+     */
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto) {
 
@@ -26,6 +29,9 @@ public class ScheduleServiceImpl implements ScheduleService{
         return scheduleRepository.saveSchedule(schedule);
     }
 
+    /**
+     * id로 일정 조회
+     */
     @Override
     public ScheduleResponseDto findScheduleById(Long id) {
         ScheduleResponseDto schedule = scheduleRepository.findScheduleById(id);
@@ -37,11 +43,17 @@ public class ScheduleServiceImpl implements ScheduleService{
         return schedule;
     }
 
+    /**
+     * 전체 일정 조회
+     */
     @Override
     public List<ScheduleResponseDto> findScheduleAll() {
         return scheduleRepository.findScheduleAll();
     }
 
+    /**
+     * 전체 일정 조회, 수정일 기준 일정 조회, 작성자 기준 일정 조회
+     */
     @Override
     public List<ScheduleResponseDto> findScheduleByDateOrWriter(String writer, String date) {
         if(writer.equals("null") && date.equals("null")) {
@@ -61,18 +73,12 @@ public class ScheduleServiceImpl implements ScheduleService{
         }
     }
 
-    @Override
-    public List<ScheduleResponseDto> findScheduleByWriter(String writer) {
-        if(scheduleRepository.findScheduleByDate(writer)!=null) {
-            return scheduleRepository.findScheduleByWriter(writer);
-        }
-        else{
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-    }
-
+    /**
+     * id로 일정(할일, 작성자) 수정
+     */
     @Override
     public ScheduleResponseDto editSchedule(Long id, ScheduleRequestDto dto) {
+        int statusCheck = 0;
         Schedule schedule = new Schedule(id, dto.getContent(), dto.getWriter(), dto.getPassword());
 
         // 입력받은 비밀번호가 동일한지 확인
@@ -81,20 +87,24 @@ public class ScheduleServiceImpl implements ScheduleService{
         }
         // 할일, 작성자 모두 수정
         if(dto.getContent()!=null && dto.getWriter()!=null){
-            scheduleRepository.editSchedule(schedule);
+            statusCheck = scheduleRepository.editSchedule(schedule);
         }
         // 할일만 수정
         else if(dto.getContent()!=null && dto.getWriter()==null){
-            scheduleRepository.editScheduleContent(schedule);
+            statusCheck = scheduleRepository.editScheduleContent(schedule);
         }
         // 작성자만 수정
         else if(dto.getContent()==null && dto.getWriter()!=null){
-            scheduleRepository.editScheduleWriter(schedule);
+            statusCheck = scheduleRepository.editScheduleWriter(schedule);
         }
+        if(statusCheck!=1)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
         return new ScheduleResponseDto(schedule);
     }
 
-
+    /**
+     * 일정 삭제
+     */
     @Override
     public void deleteSchedule(Long id, ScheduleRequestDto dto) {
         ScheduleResponseDto schedule = scheduleRepository.findScheduleById(id);
@@ -106,9 +116,8 @@ public class ScheduleServiceImpl implements ScheduleService{
 
         if(schedule == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
-        }
-
-        scheduleRepository.deleteSchedule(id);
+        }else if(scheduleRepository.deleteSchedule(id)!=1)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
     }
 
 }

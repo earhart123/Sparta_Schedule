@@ -19,6 +19,9 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    /**
+     * 일정 정보 저장
+     */
     @Override
     public ScheduleResponseDto saveSchedule(Schedule schedule) {
 
@@ -29,6 +32,9 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         return new ScheduleResponseDto(schedule);
     }
 
+    /**
+     * id로 일정 조회
+     */
     @Override
     public ScheduleResponseDto findScheduleById(Long id) {
         String sql = "SELECT id, content, writer, date FROM schedule WHERE id = ? ORDER BY date DESC";
@@ -49,6 +55,9 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         return new ScheduleResponseDto(schedule);
     }
 
+    /**
+     * 전체 일정 조회
+     */
     @Override
     public List<ScheduleResponseDto> findScheduleAll() {
 
@@ -72,6 +81,9 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         return scheduleList;
     }
 
+    /**
+     * 수정일 기준 일정 조회
+     */
     @Override
     public List<ScheduleResponseDto> findScheduleByDate(String date) {
 
@@ -93,6 +105,9 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         return scheduleList;
     }
 
+    /**
+     * 작성자 기준 일정 조회
+     */
     @Override
     public List<ScheduleResponseDto> findScheduleByWriter(String writer) {
 
@@ -115,21 +130,33 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
 
     }
 
+    /**
+     * id로 일정(할일, 작성자) 수정
+     */
     @Override
     public int editSchedule(Schedule schedule) {
         return jdbcTemplate.update("UPDATE schedule SET content = ?, writer = ? where id = ?", schedule.getContent(), schedule.getWriter(), schedule.getId());
     }
 
+    /**
+     * 할일 수정
+     */
     @Override
     public int editScheduleContent(Schedule schedule) {
         return jdbcTemplate.update("UPDATE schedule SET content = ? where id = ?", schedule.getContent(), schedule.getId());
     }
 
+    /**
+     * 작성자 수정
+     */
     @Override
     public int editScheduleWriter(Schedule schedule) {
         return jdbcTemplate.update("UPDATE schedule SET writer = ? where id = ?", schedule.getWriter(), schedule.getId());
     }
 
+    /**
+     * 일정 삭제
+     */
     @Override
     public int deleteSchedule(Long id) {
         String sql = "DELETE FROM schedule WHERE id = ?";
@@ -139,6 +166,9 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
         return result;
     }
 
+    /**
+     * DB에서 비밀번호 가져오기
+     */
     @Override
     public String getDbPassword(Long id){
         String sql = "SELECT password FROM schedule WHERE id = ?";

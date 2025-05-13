@@ -18,55 +18,56 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
-    // POST 요청을 받아 일정 정보를 저장
+    /**
+     * 일정 정보 저장
+     */
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto dto) {
         return new ResponseEntity<>(scheduleService.saveSchedule(dto), HttpStatus.CREATED);
-    }
+    } // POST 성공 후 id가 null로 반환됨
 
-    // 단건 일정 조회
+    /**
+     * 단건 일정 조회
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id){
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
     }
 
-    // 전체 일정 조회
+    /**
+     * 전체 일정 조회
+     */
     @GetMapping
     public List<ScheduleResponseDto> findScheduleAll(){
         return scheduleService.findScheduleAll();
     }
 
-    // 작성/수정일 기준 조회
+    /**
+     * 작성자 또는 수정일 기준 일정 조회
+     */
     @GetMapping("/find-param")
     public List<ScheduleResponseDto> findScheduleByDateOrWriter(@RequestParam(required = false, defaultValue = "null") String writer,
                                                         @RequestParam(required = false, defaultValue = "null") String date){
 
         return scheduleService.findScheduleByDateOrWriter(writer, date);
-
-        //scheduleList.getDate;
     }
 
-    // 작성자 기준 조회
-    @GetMapping("/writer/{writer}")
-    public List<ScheduleResponseDto> findScheduleByWriter(@PathVariable String writer){
-        return scheduleService.findScheduleByWriter(writer);
-    }
-
-    // 일정 수정
+    /**
+     * 일정 수정
+     */
     @PatchMapping("/{id}")
     public ScheduleResponseDto editSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto dto){
         return scheduleService.editSchedule(id, dto);
-    }
+    } // 작성자만 수정 시 반환 content가 null로 노출됨
 
-    // 일정 삭제
+    /**
+     * 일정 삭제
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto dto){
         scheduleService.deleteSchedule(id, dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    // id가 null로 반환
-    // 작성자만 수정 시 반환 content가 null로 노출
-    // 내림차순으로 정렬 필요
 
 
 }
