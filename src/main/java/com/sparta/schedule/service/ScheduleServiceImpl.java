@@ -75,6 +75,7 @@ public class ScheduleServiceImpl implements ScheduleService{
     public ScheduleResponseDto editSchedule(Long id, ScheduleRequestDto dto) {
         Schedule schedule = new Schedule(id, dto.getContent(), dto.getWriter(), dto.getPassword());
 
+        // 입력받은 비밀번호가 동일한지 확인
         if (!scheduleRepository.getDbPassword(id).equals(dto.getPassword())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "비밀번호가 일치하지 않습니다.");
         }
@@ -95,8 +96,13 @@ public class ScheduleServiceImpl implements ScheduleService{
 
 
     @Override
-    public void deleteSchedule(Long id) {
+    public void deleteSchedule(Long id, ScheduleRequestDto dto) {
         ScheduleResponseDto schedule = scheduleRepository.findScheduleById(id);
+
+        // 입력받은 비밀번호가 동일한지 확인
+        if (!scheduleRepository.getDbPassword(id).equals(dto.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "비밀번호가 일치하지 않습니다.");
+        }
 
         if(schedule == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);

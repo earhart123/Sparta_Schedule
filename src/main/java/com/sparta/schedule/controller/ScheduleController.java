@@ -60,8 +60,8 @@ public class ScheduleController {
 
     // 일정 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSchedule(@PathVariable Long id){
-        scheduleService.deleteSchedule(id);
+    public ResponseEntity<Void> deleteSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto dto){
+        scheduleService.deleteSchedule(id, dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     // id가 null로 반환
