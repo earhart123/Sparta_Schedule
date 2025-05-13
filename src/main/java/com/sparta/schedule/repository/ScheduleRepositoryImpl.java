@@ -31,7 +31,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
 
     @Override
     public ScheduleResponseDto findScheduleById(Long id) {
-        String sql = "SELECT id, content, writer, date FROM schedule WHERE id = ?";
+        String sql = "SELECT id, content, writer, date FROM schedule WHERE id = ? ORDER BY date DESC";
 
         RowMapper<Schedule> rowMapper = new RowMapper<Schedule>() {
             @Override
