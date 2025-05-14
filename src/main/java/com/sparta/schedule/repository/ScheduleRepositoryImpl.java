@@ -130,6 +130,27 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
 
     }
 
+    @Override
+    public List<ScheduleResponseDto> findScheduleByDateandWriter(String date, String writer) {
+        String sql = "SELECT id, content, writer, date FROM schedule WHERE date LIKE ? AND writer = ?";
+
+        RowMapper<ScheduleResponseDto> rowMapper = new RowMapper<ScheduleResponseDto>() {
+            @Override
+            public ScheduleResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                long id = rs.getLong("id");
+                String content = rs.getString("content");
+                String writer = rs.getString("writer");
+                String date = rs.getString("date");
+                return new ScheduleResponseDto(id, content, writer, date);
+            }
+        };
+
+        List<ScheduleResponseDto> scheduleList = jdbcTemplate.query(sql, rowMapper, date+"%", writer);
+
+        return scheduleList;
+
+    }
+
     /**
      * id로 일정(할일, 작성자) 수정
      */

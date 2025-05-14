@@ -46,8 +46,8 @@ public class ScheduleController {
      * 작성자 또는 수정일 기준 일정 조회
      */
     @GetMapping("/find-param")
-    public List<ScheduleResponseDto> findScheduleByDateOrWriter(@RequestParam(required = false, defaultValue = "null") String writer,
-                                                        @RequestParam(required = false, defaultValue = "null") String date){
+    public List<ScheduleResponseDto> findScheduleByDateOrWriter(@RequestParam(required = false, defaultValue = "") String writer,
+                                                        @RequestParam(required = false, defaultValue = "") String date){
 
         return scheduleService.findScheduleByDateOrWriter(writer, date);
     }

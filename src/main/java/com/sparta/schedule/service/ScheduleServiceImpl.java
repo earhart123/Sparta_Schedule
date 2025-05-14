@@ -56,20 +56,21 @@ public class ScheduleServiceImpl implements ScheduleService{
      */
     @Override
     public List<ScheduleResponseDto> findScheduleByDateOrWriter(String writer, String date) {
-        if(writer.equals("null") && date.equals("null")) {
-            // 모든 목록 반환 findScheduleAll
-            return scheduleRepository.findScheduleAll();
+        if(!writer.isEmpty() && !date.isEmpty()) {
+            // date와 writer 동일한 일정 반환
+            return scheduleRepository.findScheduleByDateandWriter(date, writer);
         }
-        else if(writer.equals("null")){
+        else if(writer.isEmpty()){
             // date 동일한 일정 반환
             return scheduleRepository.findScheduleByDate(date);
         }
-        else if(date.equals("null")){
+        else if(date.isEmpty()){
             // writer 동일한 일정 반환
             return scheduleRepository.findScheduleByWriter(writer);
         }
         else{
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            // 모든 목록 반환 findScheduleAll
+            return scheduleRepository.findScheduleAll();
         }
     }
 

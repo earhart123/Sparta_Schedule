@@ -11,6 +11,7 @@ public interface ScheduleRepository {
     List<ScheduleResponseDto> findScheduleAll();
     List<ScheduleResponseDto> findScheduleByDate(String date);
     List<ScheduleResponseDto> findScheduleByWriter(String writer);
+    List<ScheduleResponseDto> findScheduleByDateandWriter(String date, String writer);
     int editSchedule(Schedule schedule);
     int editScheduleContent(Schedule schedule);
     int editScheduleWriter(Schedule schedule);
