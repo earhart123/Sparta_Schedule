@@ -37,7 +37,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
      */
     @Override
     public ScheduleResponseDto findScheduleById(Long id) {
-        String sql = "SELECT id, content, writer, date FROM schedule WHERE id = ? ORDER BY date DESC";
+        String sql = "SELECT id, content, writer, date FROM schedule WHERE id = ?";
 
         RowMapper<Schedule> rowMapper = new RowMapper<Schedule>() {
             @Override
@@ -61,7 +61,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
     @Override
     public List<ScheduleResponseDto> findScheduleAll() {
 
-        String sql = "SELECT id, content, writer, date FROM schedule";
+        String sql = "SELECT id, content, writer, date FROM schedule ORDER BY date DESC";
 
         // *RowMapper 익명 클래스 구현
         RowMapper<ScheduleResponseDto> rowMapper = new RowMapper<ScheduleResponseDto>() {
@@ -87,7 +87,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
     @Override
     public List<ScheduleResponseDto> findScheduleByDate(String date) {
 
-        String sql = "SELECT id, content, writer, date FROM schedule WHERE date LIKE  '" + date + "%'";
+        String sql = "SELECT id, content, writer, date FROM schedule WHERE date LIKE  '" + date + "%' ORDER BY date DESC";
 
         RowMapper<ScheduleResponseDto> rowMapper = new RowMapper<ScheduleResponseDto>() {
             @Override
@@ -111,7 +111,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
     @Override
     public List<ScheduleResponseDto> findScheduleByWriter(String writer) {
 
-        String sql = "SELECT id, content, writer, date FROM schedule WHERE writer = ?";
+        String sql = "SELECT id, content, writer, date FROM schedule WHERE writer = ? ORDER BY date DESC";
 
         RowMapper<ScheduleResponseDto> rowMapper = new RowMapper<ScheduleResponseDto>() {
             @Override
@@ -132,7 +132,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
 
     @Override
     public List<ScheduleResponseDto> findScheduleByDateandWriter(String date, String writer) {
-        String sql = "SELECT id, content, writer, date FROM schedule WHERE date LIKE ? AND writer = ?";
+        String sql = "SELECT id, content, writer, date FROM schedule WHERE date LIKE ? AND writer = ? ORDER BY date DESC";
 
         RowMapper<ScheduleResponseDto> rowMapper = new RowMapper<ScheduleResponseDto>() {
             @Override
